@@ -1,56 +1,41 @@
 ---
-const socials = [
-  {
-    href: 'https://wa.me/919XXXXXXXXX',
-    icon: 'ti-brand-whatsapp',
-    label: 'WhatsApp',
-  },
-  {
-    href: 'https://linkedin.com/in/mdriyaz',
-    icon: 'ti-brand-linkedin',
-    label: 'LinkedIn',
-  },
-  {
-    href: 'https://x.com/mdriyaz',
-    icon: 'ti-brand-x',
-    label: 'X / Twitter',
-  },
-  {
-    href: 'tel:+919XXXXXXXXX',
-    icon: 'ti-phone',
-    label: '+91 9XX XXX XXXX',
-  },
-];
 ---
 
 <section class="hero">
   <div class="container hero-inner">
-    <div class="hero-left fade-up">
-      <p class="hero-tag">Webflow Developer &amp; Motion Engineer</p>
-      <h1 class="hero-name">Md Riyaz</h1>
-      <p class="hero-role">Building websites that move.</p>
-      <p class="hero-desc">
-        Custom JavaScript, GSAP animations &amp; Webflow builds — crafted
-        clean, delivered fast, and tracked correctly from day one.
-      </p>
+
+    <div class="hero-avatar">
+      <img src="/avatar.png" alt="Md Riyaz" width="80" height="80" />
     </div>
 
-    <div class="hero-right fade-up">
-      <nav class="social-links" aria-label="Social links">
-        {
-          socials.map((s) => (
-            <a href={s.href} class="social-link" target="_blank" rel="noopener noreferrer">
-              <i class={`ti ${s.icon}`} aria-hidden="true" />
-              {s.label}
-            </a>
-          ))
-        }
-      </nav>
-      <a href="mailto:hello@mdriyaz.com" class="hero-cta">
-        Get in touch
-        <i class="ti ti-arrow-right" aria-hidden="true"></i>
+    <p class="hero-greeting">Hi, I'm Riyaz 👋</p>
+
+    <h1 class="hero-name">Building websites<br />that actually move.</h1>
+
+    <p class="hero-desc">
+      A <strong>Webflow Developer</strong> and <strong>Motion Engineer</strong> based in Chennai.<br />
+      I specialise in GSAP animations, custom JavaScript, and Webflow builds.
+    </p>
+
+    <a href="mailto:work.mdriyaz@gmail.com" class="hero-cta">
+      Connect with me
+    </a>
+
+    <div class="hero-socials">
+      <a href="https://wa.me/919629158073" target="_blank" rel="noopener noreferrer">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/mohammed--riyaz/" target="_blank" rel="noopener noreferrer">
+        <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+      </a>
+      <a href="https://x.com/Mohamme74443285" target="_blank" rel="noopener noreferrer">
+        <i class="ti ti-brand-x" aria-hidden="true"></i>
+      </a>
+      <a href="tel:+919629158073">
+        <i class="ti ti-phone" aria-hidden="true"></i>
       </a>
     </div>
+
   </div>
 </section>
 
@@ -60,112 +45,105 @@ const socials = [
   }
 
   .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 48px;
-    padding-top: 96px;
-    padding-bottom: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    gap: 0;
   }
 
-  .hero-tag {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--red);
-    font-weight: 500;
+  .hero-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 24px;
+    border: 2px solid var(--border);
+  }
+
+  .hero-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .hero-greeting {
+    font-size: 15px;
+    color: var(--muted);
     margin-bottom: 20px;
   }
 
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(48px, 7vw, 80px);
+    font-size: clamp(36px, 6vw, 68px);
     font-weight: 700;
-    line-height: 1.0;
+    line-height: 1.08;
     letter-spacing: -0.04em;
     color: var(--ink);
-    margin-bottom: 8px;
-  }
-
-  .hero-role {
-    font-size: clamp(16px, 2.2vw, 22px);
-    font-weight: 300;
-    color: var(--muted);
-    letter-spacing: -0.01em;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
+    max-width: 700px;
   }
 
   .hero-desc {
-    font-size: 14px;
+    font-size: 15px;
     color: #666;
     line-height: 1.75;
     max-width: 420px;
+    margin-bottom: 36px;
   }
 
-  .hero-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 20px;
-    padding-bottom: 4px;
-  }
-
-  .social-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-  }
-
-  .social-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-
-  .social-link:hover {
-    color: var(--red);
-  }
-
-  .social-link i {
-    font-size: 16px;
+  .hero-desc strong {
+    color: var(--ink);
+    font-weight: 600;
   }
 
   .hero-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--red);
+    background: var(--ink);
     color: #fff;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 13px 24px;
-    border-radius: var(--radius);
+    padding: 14px 28px;
+    border-radius: 100px;
     transition: background 0.2s;
+    margin-bottom: 40px;
   }
 
   .hero-cta:hover {
-    background: var(--red-dark);
+    background: var(--red);
+  }
+
+  .hero-socials {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hero-socials a {
+    font-size: 20px;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .hero-socials a:hover {
+    color: var(--red);
   }
 
   @media (max-width: 768px) {
     .hero-inner {
-      grid-template-columns: 1fr;
       padding-top: 56px;
       padding-bottom: 56px;
     }
 
-    .hero-right {
-      align-items: flex-start;
-    }
-
-    .social-links {
-      align-items: flex-start;
+    .hero-name {
+      font-size: clamp(32px, 8vw, 48px);
     }
   }
 </style>
