@@ -22,12 +22,7 @@ const {
 } = Astro.props;
 ---
 
-
-  class="project-card"
-  href={href}
-  target={href !== '#' ? '_blank' : undefined}
-  rel="noopener noreferrer"
->
+<a class="project-card" href={href} target={href !== '#' ? '_blank' : undefined} rel="noopener noreferrer">
   <div class="card-img">
     {image ? (
       <img src={image} alt={title} width="400" height="220" loading="lazy" />
