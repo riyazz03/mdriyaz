@@ -1,0 +1,171 @@
+---
+const socials = [
+  {
+    href: 'https://wa.me/919XXXXXXXXX',
+    icon: 'ti-brand-whatsapp',
+    label: 'WhatsApp',
+  },
+  {
+    href: 'https://linkedin.com/in/mdriyaz',
+    icon: 'ti-brand-linkedin',
+    label: 'LinkedIn',
+  },
+  {
+    href: 'https://x.com/mdriyaz',
+    icon: 'ti-brand-x',
+    label: 'X / Twitter',
+  },
+  {
+    href: 'tel:+919XXXXXXXXX',
+    icon: 'ti-phone',
+    label: '+91 9XX XXX XXXX',
+  },
+];
+---
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-left fade-up">
+      <p class="hero-tag">Webflow Developer &amp; Motion Engineer</p>
+      <h1 class="hero-name">Md Riyaz</h1>
+      <p class="hero-role">Building websites that move.</p>
+      <p class="hero-desc">
+        Custom JavaScript, GSAP animations &amp; Webflow builds — crafted
+        clean, delivered fast, and tracked correctly from day one.
+      </p>
+    </div>
+
+    <div class="hero-right fade-up">
+      <nav class="social-links" aria-label="Social links">
+        {
+          socials.map((s) => (
+            <a href={s.href} class="social-link" target="_blank" rel="noopener noreferrer">
+              <i class={`ti ${s.icon}`} aria-hidden="true" />
+              {s.label}
+            </a>
+          ))
+        }
+      </nav>
+      <a href="mailto:hello@mdriyaz.com" class="hero-cta">
+        Get in touch
+        <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 48px;
+    padding-top: 96px;
+    padding-bottom: 88px;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .hero-role {
+    font-size: clamp(16px, 2.2vw, 22px);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.75;
+    max-width: 420px;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    padding-bottom: 4px;
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .social-link:hover {
+    color: var(--red);
+  }
+
+  .social-link i {
+    font-size: 16px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 13px 24px;
+    border-radius: var(--radius);
+    transition: background 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: var(--red-dark);
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    .hero-right {
+      align-items: flex-start;
+    }
+
+    .social-links {
+      align-items: flex-start;
+    }
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+const contacts = [
+  { href: 'mailto:hello@mdriyaz.com', icon: 'ti-mail',            label: 'hello@mdriyaz.com' },
+  { href: 'tel:+919XXXXXXXXX',        icon: 'ti-phone',           label: '+91 9XX XXX XXXX' },
+  { href: 'https://wa.me/919XXXXXXXXX', icon: 'ti-brand-whatsapp', label: 'WhatsApp' },
+];
+
+const socials = [
+  { href: 'https://linkedin.com/in/mdriyaz', icon: 'ti-brand-linkedin', label: 'LinkedIn' },
+  { href: 'https://x.com/mdriyaz',           icon: 'ti-brand-x',        label: 'X' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-heading">
+        Let's build<br />something <em>great.</em>
+      </div>
+      <div class="footer-right">
+        <nav class="footer-contacts" aria-label="Contact links">
+          {
+            contacts.map((c) => (
+              <a href={c.href} class="footer-contact-row" target="_blank" rel="noopener noreferrer">
+                <i class={`ti ${c.icon}`} aria-hidden="true" />
+                {c.label}
+              </a>
+            ))
+          }
+        </nav>
+        <nav class="footer-socials" aria-label="Social media links">
+          {
+            socials.map((s) => (
+              <a href={s.href} class="footer-social" target="_blank" rel="noopener noreferrer">
+                <i class={`ti ${s.icon}`} aria-hidden="true" />
+                {s.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {year} Md Riyaz — mdriyaz.com</span>
+      <span>Chennai, India</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--bg-dark);
+    padding: 64px 0 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #222;
+  }
+
+  .footer-heading {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  .footer-heading em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+  }
+
+  .footer-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #aaa;
+    transition: color 0.2s;
+  }
+
+  .footer-contact-row:hover {
+    color: var(--red);
+  }
+
+  .footer-contact-row i {
+    font-size: 16px;
+    color: var(--red);
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .footer-social {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #666;
+    padding: 8px 14px;
+    border: 1px solid #222;
+    border-radius: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .footer-social:hover {
+    color: var(--red);
+    border-color: var(--red);
+  }
+
+  .footer-social i {
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 28px;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
