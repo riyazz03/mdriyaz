@@ -5,62 +5,68 @@ const projects = [
   {
     num: '01',
     title: 'Scroll-Driven Section Timeline',
-    description:
-      'Scroll-pinned GSAP timeline with SplitText word reveals, clip-path image sequences, and SVG opacity choreography across multiple panels.',
+    description: 'Scroll-pinned GSAP timeline with SplitText word reveals, clip-path image sequences, and SVG opacity choreography across multiple panels.',
     tags: ['GSAP', 'SplitText', 'ScrollTrigger', 'Webflow'],
     gradient: 'linear-gradient(135deg, #E84B2A 0%, #FF7A5A 100%)',
     initials: 'ST',
     label: 'Scroll Timeline',
+    platform: 'webflow',
+    type: 'web',
   },
   {
     num: '02',
     title: 'Gear UI & SVG Race Map',
-    description:
-      'Rotating gear tab switcher combined with a DrawSVG race map — a moving car follows the path with IntersectionObserver-gated entry and hard reset on tab switch.',
+    description: 'Rotating gear tab switcher combined with a DrawSVG race map — a moving car follows the path with IntersectionObserver-gated entry and hard reset on tab switch.',
     tags: ['DrawSVG', 'MotionPath', 'GSAP', 'Custom JS'],
     gradient: 'linear-gradient(135deg, #F97316 0%, #FBBF24 100%)',
     initials: 'GR',
     label: 'Gear & Race Map',
+    platform: 'native',
+    type: 'web',
   },
   {
     num: '03',
     title: 'Hotel CMS — Property Listings',
-    description:
-      'Dynamic Webflow CMS page rendering hotel amenities from malformed JSON — parsed, sanitised, and displayed without breaking the editor experience.',
+    description: 'Dynamic Webflow CMS page rendering hotel amenities from malformed JSON — parsed, sanitised, and displayed without breaking the editor experience.',
     tags: ['Webflow CMS', 'JSON', 'JavaScript'],
     gradient: 'linear-gradient(135deg, #E84B2A 0%, #F97316 100%)',
     initials: 'HC',
     label: 'Hotel CMS',
+    platform: 'webflow',
+    type: 'web',
   },
   {
     num: '04',
     title: 'Analytics Audit & Full Fix',
-    description:
-      'Diagnosed and corrected a broken tracking stack — misplaced Pipedrive script, GA4 opt-out blocking all events, misconfigured Meta Pixel, and wrong GTM noscript placement.',
+    description: 'Diagnosed and corrected a broken tracking stack — misplaced Pipedrive script, GA4 opt-out blocking all events, misconfigured Meta Pixel, and wrong GTM noscript placement.',
     tags: ['GA4', 'GTM', 'Meta Pixel', 'Pipedrive'],
     gradient: 'linear-gradient(135deg, #111 0%, #444 100%)',
     initials: 'AA',
     label: 'Analytics Audit',
+    platform: 'nextjs',
+    type: 'web',
   },
   {
     num: '05',
     title: 'Counter Animation System',
-    description:
-      'Reusable scroll-triggered count-up script supporting multiple wrapper classes, suffix spacing, and IntersectionObserver entry — works across any Webflow site.',
+    description: 'Reusable scroll-triggered count-up script supporting multiple wrapper classes, suffix spacing, and IntersectionObserver entry — works across any Webflow site.',
     tags: ['JavaScript', 'IntersectionObserver', 'Webflow'],
     gradient: 'linear-gradient(135deg, #F97316 0%, #E84B2A 100%)',
     initials: 'CA',
     label: 'Counter Animation',
+    platform: 'native',
+    type: 'web',
   },
   {
     num: '06',
     title: 'Scroll Nav Behaviour',
-    description:
-      'GSAP ScrollTrigger-based nav that hides on scroll down, reappears on scroll up — mobile-conditional thresholds and class toggling for style states.',
+    description: 'GSAP ScrollTrigger-based nav that hides on scroll down, reappears on scroll up — mobile-conditional thresholds and class toggling for style states.',
     tags: ['GSAP', 'ScrollTrigger', 'Mobile', 'Webflow'],
     gradient: 'linear-gradient(135deg, #C93D20 0%, #E84B2A 100%)',
     initials: 'NB',
     label: 'Nav Behaviour',
+    platform: 'webflow',
+    type: 'web',
   },
 ];
 ---
@@ -70,16 +76,114 @@ const projects = [
     <div class="section-label">
       <span>Selected Work</span>
     </div>
-    <div class="projects-grid">
-      {projects.map((p) => <ProjectCard {...p} />)}
+
+    <div class="filter-bar" role="group" aria-label="Filter projects">
+      <div class="filter-group">
+        <span class="filter-group-label">Platform</span>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all" data-group="platform">All</button>
+          <button class="filter-btn" data-filter="webflow" data-group="platform">Webflow</button>
+          <button class="filter-btn" data-filter="native" data-group="platform">Native JS</button>
+          <button class="filter-btn" data-filter="nextjs" data-group="platform">Next.js</button>
+          <button class="filter-btn" data-filter="flutter" data-group="platform">Flutter</button>
+        </div>
+      </div>
+
+      <div class="filter-divider" aria-hidden="true"></div>
+
+      <div class="filter-group">
+        <span class="filter-group-label">Type</span>
+        <div class="filter-buttons">
+          <button class="filter-btn type-btn active" data-filter="all" data-group="type">All</button>
+          <button class="filter-btn type-btn" data-filter="web" data-group="type">Web</button>
+          <button class="filter-btn type-btn" data-filter="app" data-group="type">App</button>
+        </div>
+      </div>
     </div>
+
+    <p class="count-label">
+      Showing <span id="project-count">{projects.length}</span> projects
+    </p>
+
+    <div class="projects-grid" id="projects-grid">
+      {projects.map((p) => (
+        <div class="card-wrapper" data-platform={p.platform} data-type={p.type}>
+          <ProjectCard {...p} />
+        </div>
+      ))}
+    </div>
+
+    <p class="empty-state" id="empty-state" aria-live="polite">
+      No projects match this filter.
+    </p>
   </div>
 </section>
 
 <style>
-  .projects {
-    padding: 72px 0 80px;
+  .projects { padding: 72px 0 80px; }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    row-gap: 12px;
+    margin-bottom: 24px;
   }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-group-label {
+    font-size: 11px;
+    color: #aaa;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .filter-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .filter-divider {
+    width: 1px;
+    height: 20px;
+    background: #eee;
+    margin: 0 14px;
+    flex-shrink: 0;
+  }
+
+  .filter-btn {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border: 1px solid #E8E6E2;
+    border-radius: 2px;
+    background: #fff;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .filter-btn:hover { border-color: var(--red); color: var(--red); }
+  .filter-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+  .filter-btn.type-btn.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .count-label {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .count-label span { color: var(--red); font-weight: 500; }
 
   .projects-grid {
     display: grid;
@@ -87,13 +191,56 @@ const projects = [
     gap: 28px;
   }
 
-  @media (max-width: 640px) {
-    .projects {
-      padding: 48px 0 56px;
-    }
+  .card-wrapper { transition: opacity 0.25s ease; }
+  .card-wrapper.hidden { display: none; }
 
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
+  .empty-state {
+    display: none;
+    text-align: center;
+    padding: 56px 0;
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  .empty-state.visible { display: block; }
+
+  @media (max-width: 768px) {
+    .projects { padding: 48px 0 56px; }
+    .filter-divider { display: none; }
+    .projects-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  const state = { platform: 'all', type: 'all' };
+
+  function applyFilter() {
+    const wrappers = document.querySelectorAll<HTMLElement>('.card-wrapper');
+    let visible = 0;
+
+    wrappers.forEach((card) => {
+      const pMatch = state.platform === 'all' || card.dataset.platform === state.platform;
+      const tMatch = state.type === 'all' || card.dataset.type === state.type;
+      const show = pMatch && tMatch;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+
+    const countEl = document.getElementById('project-count');
+    const emptyEl = document.getElementById('empty-state');
+    if (countEl) countEl.textContent = String(visible);
+    if (emptyEl) emptyEl.classList.toggle('visible', visible === 0);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.filter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group as 'platform' | 'type';
+      const value = btn.dataset.filter ?? 'all';
+      const selector = group === 'type' ? '.filter-btn.type-btn' : '.filter-btn:not(.type-btn)';
+      document.querySelectorAll(selector).forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      state[group] = value;
+      applyFilter();
+    });
+  });
+</script>

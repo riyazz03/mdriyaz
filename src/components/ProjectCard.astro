@@ -4,6 +4,7 @@ interface Props {
   title: string;
   description: string;
   tags: string[];
+  type: string;
   image?: string;
   gradient?: string;
   initials?: string;
@@ -12,10 +13,7 @@ interface Props {
 }
 
 const {
-  num,
-  title,
-  description,
-  tags,
+  num, title, description, tags, type,
   image,
   gradient = 'linear-gradient(135deg, #E84B2A 0%, #FF7A5A 100%)',
   initials = '??',
@@ -24,22 +22,28 @@ const {
 } = Astro.props;
 ---
 
-<a class="project-card" href={href} target={href !== '#' ? '_blank' : undefined} rel="noopener noreferrer">
+
+  class="project-card"
+  href={href}
+  target={href !== '#' ? '_blank' : undefined}
+  rel="noopener noreferrer"
+>
   <div class="card-img">
-    {
-      image ? (
-        <img src={image} alt={title} width="400" height="220" loading="lazy" />
-      ) : (
-        <div class="card-placeholder" style={`background: ${gradient}`}>
-          <span class="placeholder-initials">{initials}</span>
-          {label && <span class="placeholder-label">{label}</span>}
-        </div>
-      )
-    }
+    {image ? (
+      <img src={image} alt={title} width="400" height="220" loading="lazy" />
+    ) : (
+      <div class="card-placeholder" style={`background: ${gradient}`}>
+        <span class="placeholder-initials">{initials}</span>
+        {label && <span class="placeholder-label">{label}</span>}
+      </div>
+    )}
   </div>
 
   <div class="card-body">
-    <div class="card-num">{num}</div>
+    <div class="card-meta">
+      <span class="card-num">{num}</span>
+      <span class={`card-type-badge badge-${type}`}>{type}</span>
+    </div>
     <h3 class="card-title">{title}</h3>
     <p class="card-desc">{description}</p>
     <ul class="card-tags" aria-label="Technologies">
@@ -58,48 +62,33 @@ const {
     transition: border-color 0.25s, transform 0.25s;
     position: relative;
     color: inherit;
+    height: 100%;
   }
 
   .project-card::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
     background: var(--red);
     transition: width 0.35s ease;
   }
 
-  .project-card:hover {
-    border-color: var(--red);
-    transform: translateY(-3px);
-  }
+  .project-card:hover { border-color: var(--red); transform: translateY(-3px); }
+  .project-card:hover::after { width: 100%; }
 
-  .project-card:hover::after {
-    width: 100%;
-  }
-
-  .card-img {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-  }
+  .card-img { width: 100%; height: 200px; overflow: hidden; }
 
   .card-img img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
   }
 
-  .project-card:hover .card-img img {
-    transform: scale(1.04);
-  }
+  .project-card:hover .card-img img { transform: scale(1.04); }
 
   .card-placeholder {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,15 +96,13 @@ const {
     transition: filter 0.3s;
   }
 
-  .project-card:hover .card-placeholder {
-    filter: brightness(1.08);
-  }
+  .project-card:hover .card-placeholder { filter: brightness(1.08); }
 
   .placeholder-initials {
     font-family: var(--font-display);
     font-size: 36px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255,255,255,0.9);
     letter-spacing: -0.02em;
   }
 
@@ -123,27 +110,38 @@ const {
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255,255,255,0.65);
     position: absolute;
-    bottom: 14px;
-    left: 16px;
+    bottom: 14px; left: 16px;
     font-weight: 500;
   }
 
-  .card-body {
-    padding: 22px 22px 24px;
-  }
+  .card-body { padding: 20px 20px 22px; }
 
-  .card-num {
-    font-size: 11px;
-    color: #ccc;
-    letter-spacing: 0.08em;
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 8px;
   }
 
+  .card-num { font-size: 10px; color: #ccc; letter-spacing: 0.06em; }
+
+  .card-type-badge {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .badge-web { background: #EEF6FF; color: #2563EB; }
+  .badge-app { background: #F0FDF4; color: #16A34A; }
+
   .card-title {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--ink);
@@ -155,22 +153,17 @@ const {
     font-size: 13px;
     color: var(--muted);
     line-height: 1.65;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .card-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    list-style: none;
-  }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; list-style: none; }
 
   .card-tag {
-    font-size: 10px;
+    font-size: 9px;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     padding: 4px 9px;
